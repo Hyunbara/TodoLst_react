@@ -1,11 +1,25 @@
 import TodoInput from "../components/TodoInput";
-import TodoList from "../components/TodoList";
 
-const Tomorrow = () => {
+const Tomorrow = ({ todos, addTodo, toggleTodo, deleteTodo }) => {
   return (
     <>
-      <TodoInput date="tomorrow" />
-      <TodoList date="tomorrow" />
+      <h2>🥰 내일 할 일</h2>
+      <TodoInput date="tomorrow" addTodo={addTodo} />
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            <input type="checkbox" checked={todo.completed} onChange={() => toggleTodo("tomorrow", todo.id)} />
+            <span style={{ textDecoration: todo.completed ? "line-through" : "none" }}>{todo.text}</span>
+            <button
+              onClick={() => {
+                deleteTodo("tomorrow", todo.id);
+              }}
+            >
+              삭제
+            </button>
+          </li>
+        ))}
+      </ul>
     </>
   );
 };
