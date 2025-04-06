@@ -1,4 +1,4 @@
-const TodoInput = () => {
+const TodoInput = ({ date, addTodo }) => {
   return <div>todoInput</div>;
 };
 
