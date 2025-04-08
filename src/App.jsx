@@ -2,7 +2,7 @@ import Yesterday from "./pages/Yesterday";
 import Today from "./pages/Today";
 import Tomorrow from "./pages/Tomorrow";
 import { NavLink, BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const App = () => {
   const [todos, setTodos] = useState({
@@ -49,6 +49,20 @@ const App = () => {
       [date]: prev[date].filter((todo) => todo.id !== id),
     }));
   };
+
+  // 처음 앱 로딩 시, localStorage에서 기존 데이터 불러오기
+  useEffect(() => {
+    const savedTodos = localStorage.getItem("todos");
+    console.log(savedTodos);
+    if (savedTodos) {
+      setTodos(JSON.parse(savedTodos));
+    }
+  }, []);
+
+  // todos 상태가 바뀔때 마다 localStorag에 저장
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <BrowserRouter>
